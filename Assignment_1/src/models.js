@@ -1,3 +1,12 @@
+import {
+  convertToF,
+  convertToC,
+  convertToInches,
+  convertToMM,
+  convertToMPH,
+  convertToMS,
+} from "./utils.js";
+
 function Event(time, place) {
   function getTime() {
     return time;
@@ -38,23 +47,11 @@ function WeatherData(time, place, value, type, unit) {
 function Temperature(time, place, value, type, unit) {
   let weatherData = WeatherData(time, place, value, type, unit);
 
-  function convertToF() {
-    if (weatherData.getUnit() === "F") {
-      return weatherData.getValue();
-    } else {
-      return weatherData.getValue() * 1.8 + 32;
-    }
-  }
-
-  function convertToC() {
-    if (weatherData.getUnit() === "C") {
-      return weatherData.getValue();
-    } else {
-      return (weatherData.getValue() - 32) / 1.8;
-    }
-  }
-
-  return { ...weatherData, convertToF, convertToC };
+  return {
+    ...weatherData,
+    convertToF: () => convertToF(weatherData.getValue(), weatherData.getUnit()),
+    convertToC: () => convertToC(weatherData.getValue(), weatherData.getUnit()),
+  };
 }
 
 function Precipitation(time, place, value, type, unit) {
@@ -64,23 +61,14 @@ function Precipitation(time, place, value, type, unit) {
     return weatherData.getType();
   }
 
-  function convertToInches() {
-    if (weatherData.getUnit() === "Inches") {
-      return weatherData.getValue();
-    } else {
-      return weatherData.getValue() / 25.4;
-    }
-  }
-
-  function convertToMM() {
-    if (weatherData.getUnit() === "mm") {
-      return weatherData.getValue();
-    } else {
-      return weatherData.getValue() * 25.4;
-    }
-  }
-
-  return { ...weatherData, getPrecipitationType, convertToInches, convertToMM };
+  return {
+    ...weatherData,
+    getPrecipitationType,
+    convertToInches: () =>
+      convertToInches(weatherData.getValue(), weatherData.getUnit()),
+    convertToMM: () =>
+      convertToMM(weatherData.getValue(), weatherData.getUnit()),
+  };
 }
 
 function Wind(time, place, value, type, unit, windDirection) {
@@ -90,22 +78,14 @@ function Wind(time, place, value, type, unit, windDirection) {
     return windDirection;
   }
 
-  function convertToMPH() {
-    if (weatherData.getUnit() === "mph") {
-      return weatherData.getValue();
-    } else {
-      return weatherData.getValue() * 2.23;
-    }
-  }
-
-  function convertToMS() {
-    if (weatherData.getUnit() === "m/s") {
-      return weatherData.getValue();
-    } else {
-      return weatherData.getValue() * 0.44704;
-    }
-  }
-  return { ...weatherData, getDirection, convertToMPH, convertToMS };
+  return {
+    ...weatherData,
+    getDirection,
+    convertToMPH: () =>
+      convertToMPH(weatherData.getValue(), weatherData.getUnit()),
+    convertToMS: () =>
+      convertToMS(weatherData.getValue(), weatherData.getUnit()),
+  };
 }
 function CloudCoverage(time, place, value, type, unit) {
   let weatherData = WeatherData(time, place, value, type, unit);
@@ -148,23 +128,19 @@ function WeatherPrediction(time, place, max, min, type, unit) {
 function TemperaturePrediction(time, place, max, min, type, unit) {
   let weatherPrediction = WeatherPrediction(time, place, max, min, type, unit);
 
-  function convertToF() {
-    if (weatherPrediction.getUnit() === "F") {
-      return weatherPrediction.getValue();
-    } else {
-      return weatherPrediction.getValue() * 1.8 + 32;
-    }
-  }
-
-  function convertToC() {
-    if (weatherPrediction.getUnit() === "C") {
-      return weatherPrediction.getValue();
-    } else {
-      return (weatherPrediction.getValue() - 32) / 1.8;
-    }
-  }
-
-  return { ...weatherPrediction, convertToF, convertToC };
+  return {
+    ...weatherPrediction,
+    convertToF: () =>
+      convertTemperatureToF(
+        weatherPrediction.getValue(),
+        weatherPrediction.getUnit()
+      ),
+    convertToC: () =>
+      convertTemperatureToC(
+        weatherPrediction.getValue(),
+        weatherPrediction.getUnit()
+      ),
+  };
 }
 
 function PrecipitationPrediction(
@@ -186,28 +162,20 @@ function PrecipitationPrediction(
     return weatherPrediction.matches(weatherData);
   }
 
-  function convertToInches() {
-    if (weatherPrediction.getUnit() === "Inches") {
-      return weatherPrediction.getValue();
-    } else {
-      return weatherPrediction.getValue() / 25.4;
-    }
-  }
-
-  function convertToMM() {
-    if (weatherPrediction.getUnit() === "mm") {
-      return weatherPrediction.getValue();
-    } else {
-      return weatherPrediction.getValue() * 25.4;
-    }
-  }
-
   return {
     ...weatherPrediction,
     getExpectedTypes,
     matches,
-    convertToInches,
-    convertToMM,
+    convertToInches: () =>
+      convertPrecipitationToInches(
+        weatherPrediction.getValue(),
+        weatherPrediction.getUnit()
+      ),
+    convertToMM: () =>
+      convertPrecipitationToMM(
+        weatherPrediction.getValue(),
+        weatherPrediction.getUnit()
+      ),
   };
 }
 
@@ -222,28 +190,20 @@ function WindPrediction(time, place, max, min, type, unit, expectedDirections) {
     return weatherPrediction.matches(weatherData);
   }
 
-  function convertToMPH() {
-    if (weatherPrediction.getUnit() === "mph") {
-      return weatherPrediction.getValue();
-    } else {
-      return weatherPrediction.getValue() * 2.23;
-    }
-  }
-
-  function convertToMS() {
-    if (weatherPrediction.getUnit() === "m/s") {
-      return weatherPrediction.getValue();
-    } else {
-      return weatherPrediction.getValue() * 0.44704;
-    }
-  }
-
   return {
     ...weatherPrediction,
     getExpectedDirections,
     matches,
-    convertToMPH,
-    convertToMS,
+    convertToMPH: () =>
+      convertWindToMPH(
+        weatherPrediction.getValue(),
+        weatherPrediction.getUnit()
+      ),
+    convertToMS: () =>
+      convertWindToMS(
+        weatherPrediction.getValue(),
+        weatherPrediction.getUnit()
+      ),
   };
 }
 
@@ -251,3 +211,16 @@ function CloudCoveragePrediction(time, place, max, min, type, unit) {
   let weatherPrediction = WeatherPrediction(time, place, max, min, type, unit);
   return { ...weatherPrediction };
 }
+
+export {
+  WeatherData,
+  WeatherPrediction,
+  Temperature,
+  Precipitation,
+  Wind,
+  CloudCoverage,
+  TemperaturePrediction,
+  PrecipitationPrediction,
+  WindPrediction,
+  CloudCoveragePrediction,
+};
