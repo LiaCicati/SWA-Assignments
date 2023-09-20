@@ -8,7 +8,7 @@ import {
 
 function fetchData(endpoint, city, callback) {
   const xhr = new XMLHttpRequest();
-  const url = "http://localhost:8081/" + endpoint + "/" + city;
+  const url = "http://localhost:8080/" + endpoint + "/" + city;
 
   xhr.open("GET", url, true);
   xhr.onload = () => {

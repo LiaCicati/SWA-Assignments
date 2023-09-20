@@ -70,7 +70,7 @@ function generateWeatherData() {
 }
 
 function sendWeatherData(data) {
-  fetch("http://localhost:8081/data", {
+  fetch("http://localhost:8080/data", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
