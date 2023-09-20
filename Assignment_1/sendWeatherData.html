@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Submit Weather Data</title>
+    <link rel="stylesheet" href="./src/style.css" />
+  </head>
+  <body>
+    <div style="margin-bottom: 20px">
+      <a href="index.html">See Weather Data</a>
+    </div>
+    <h2>Add Weather Data</h2>
+    <form id="weatherForm">
+      <div style="margin-bottom: 10px">
+        <label for="citySelect" style="font-weight: bold">City:</label>
+        <select id="citySelect">
+          <option value="Horsens">Horsens</option>
+          <option value="Copenhagen">Copenhagen</option>
+          <option value="Aarhus">Aarhus</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom: 10px">
+        <label for="temperatureInput" style="font-weight: bold"
+          >Temperature (°C):</label
+        >
+        <input
+          type="number"
+          id="temperatureInput"
+          min="-50"
+          max="50"
+          required
+        />
+      </div>
+
+      <div style="margin-bottom: 10px">
+        <label for="precipitationInput" style="font-weight: bold"
+          >Precipitation (mm):</label
+        >
+        <input
+          type="number"
+          id="precipitationInput"
+          min="0"
+          max="300"
+          required
+        />
+        <label for="precipitationType" style="font-weight: bold">Type:</label>
+        <select id="precipitationType">
+          <option value="rain">Rain</option>
+          <option value="snow">Snow</option>
+          <option value="sleet">Sleet</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom: 10px">
+        <label for="windSpeedInput" style="font-weight: bold"
+          >Wind Speed (m/s):</label
+        >
+        <input type="number" id="windSpeedInput" min="0" max="100" required />
+        <label for="windDirection" style="font-weight: bold">Direction:</label>
+        <select id="windDirection">
+          <option value="North">North</option>
+          <option value="South">South</option>
+          <option value="East">East</option>
+          <option value="West">West</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom: 10px">
+        <label for="cloudCoverageInput" style="font-weight: bold"
+          >Cloud Coverage (%):</label
+        >
+        <input
+          type="number"
+          id="cloudCoverageInput"
+          min="0"
+          max="100"
+          required
+        />
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <div id="sentDataContainer">
+      <h2>Sent Weather Data:</h2>
+      <!-- Data will be displayed here -->
+    </div>
+    <div id="allDataContainer"></div>
+
+    <script type="module" src="./src/models.js"></script>
+    <script defer type="module" src="./src/fetch.service.js"></script>
+  </body>
+</html>

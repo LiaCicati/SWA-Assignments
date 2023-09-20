@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Forecast</title>
+    <link rel="stylesheet" href="./src/style.css" />
+  </head>
+  <body>
+    <div style="margin-bottom: 20px">
+      <a href="sendWeatherData.html">Send Weather Data</a>
+    </div>
+    <h2>Select a city to view hourly forecast for the next 24 hours:</h2>
+    <select id="citySelector">
+      <option value="Horsens">Horsens</option>
+      <option value="Aarhus">Aarhus</option>
+      <option value="Copenhagen">Copenhagen</option>
+    </select>
+
+    <div id="forecastContainer"></div>
+
+    <h2>Latest Measurements</h2>
+    <div id="latestMeasurementsContainer"></div>
+
+    <h2>Weather Stats for the Last Day</h2>
+    <div id="weatherStatsContainer"></div>
+
+    <script type="module" src="./src/models.js"></script>
+    <script type="module" src="./src/utils.js"></script>
+    <script type="module" src="./src/xmlHttpRequest.service.js"></script>
+  </body>
+</html>

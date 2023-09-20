@@ -46,9 +46,18 @@ function WeatherData(time, place, value, type, unit) {
 
 function Temperature(time, place, value, type, unit) {
   let weatherData = WeatherData(time, place, value, type, unit);
-
+  function getData() {
+    return {
+      time: this.getTime(),
+      place: this.getPlace(),
+      value: this.getValue(),
+      type: this.getType(),
+      unit: this.getUnit(),
+    };
+  }
   return {
     ...weatherData,
+    getData,
     convertToF: () => convertToF(weatherData.getValue(), weatherData.getUnit()),
     convertToC: () => convertToC(weatherData.getValue(), weatherData.getUnit()),
   };
@@ -56,13 +65,22 @@ function Temperature(time, place, value, type, unit) {
 
 function Precipitation(time, place, value, type, unit) {
   let weatherData = WeatherData(time, place, value, type, unit);
-
+  function getData() {
+    return {
+      time: this.getTime(),
+      place: this.getPlace(),
+      value: this.getValue(),
+      type: this.getType(),
+      unit: this.getUnit(),
+    };
+  }
   function getPrecipitationType() {
     return weatherData.getType();
   }
 
   return {
     ...weatherData,
+    getData,
     getPrecipitationType,
     convertToInches: () =>
       convertToInches(weatherData.getValue(), weatherData.getUnit()),
@@ -77,10 +95,21 @@ function Wind(time, place, value, type, unit, windDirection) {
   function getDirection() {
     return windDirection;
   }
+  function getData() {
+    return {
+      time: this.getTime(),
+      place: this.getPlace(),
+      value: this.getValue(),
+      type: this.getType(),
+      unit: this.getUnit(),
+      direction: getDirection(),
+    };
+  }
 
   return {
     ...weatherData,
     getDirection,
+    getData,
     convertToMPH: () =>
       convertToMPH(weatherData.getValue(), weatherData.getUnit()),
     convertToMS: () =>
@@ -89,8 +118,17 @@ function Wind(time, place, value, type, unit, windDirection) {
 }
 function CloudCoverage(time, place, value, type, unit) {
   let weatherData = WeatherData(time, place, value, type, unit);
+  function getData() {
+    return {
+      time: this.getTime(),
+      place: this.getPlace(),
+      value: this.getValue(),
+      type: this.getType(),
+      unit: this.getUnit(),
+    };
+  }
 
-  return { ...weatherData };
+  return { ...weatherData, getData };
 }
 
 function WeatherPrediction(time, place, max, min, type, unit) {
