@@ -1,4 +1,4 @@
-import { Temperature, Precipitation, Wind, CloudCoverage } from "./models.js";
+import { Temperature, Precipitation, Wind, CloudCoverage } from "../models/models.js";
 
 const citySelect = document.getElementById("citySelect");
 const temperatureInput = document.getElementById("temperatureInput");

@@ -5,7 +5,7 @@ import {
   convertToMM,
   convertToMPH,
   convertToMS,
-} from "./utils.js";
+} from "../utils/utils.js";
 
 function Event(time, place) {
   function getTime() {

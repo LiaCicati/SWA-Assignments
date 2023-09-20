@@ -4,7 +4,7 @@ import {
   WindPrediction,
   CloudCoveragePrediction,
   PrecipitationPrediction,
-} from "./models.js";
+} from "../models/models.js";
 
 function fetchData(endpoint, city, callback) {
   const xhr = new XMLHttpRequest();
